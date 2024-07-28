@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% translate 'Profile' %}
+    {{ user.username }}{% endblock %}
+{% block content %}
+    <div class="container mt-5 text-light">
+        <h4>{% translate 'About me' %}</h4>
+        {% translate 'Username' %}: {{ user.username }} <br>
+        {% translate 'Email' %}: {{ user.email }}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Установить время уведомления</button>
+        </form>
+    </div>
+    <!-- /.container -->
+{% endblock %}

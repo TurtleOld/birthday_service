@@ -1,0 +1,53 @@
+{# Load the tag library #}
+{% load static %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% block head %}
+        <title>{% block title %}{% endblock %} - Subscription Birthday!</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% endblock %}
+</head>
+<body class="bg-success">
+
+        {% if user.is_authenticated %}
+            {% include 'header.html' %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert container position-absolute start-50 translate-middle mt-3 text-center {% if message.tags %}{{ message.tags }}{% endif %}">
+                        <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        {% if user.is_registered %}
+            {% include 'header.html' %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert container position-absolute start-50 translate-middle mt-5 text-center {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% elif not user.last_login %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert container position-absolute start-50 translate-middle mt-5 text-center {% if message.tags %}{{ message.tags }}{% endif %}">
+                        <span{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

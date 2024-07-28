@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% translate 'Subscriptions' %}
+    {{ user.username }}{% endblock %}
+{% block content %}
+    <div class="container mt-5 text-light">
+        <h4>{% translate 'My Subscriptions' %}</h4>
+        {% for subscriber in subscribers %}
+            {{ subscriber.subscriber.username }} | {{ subscriber.subscriber.email }} | {{ subscriber.subscriber.birthday | date:"d F Y" }}
+            <a class="text-decoration-none text-warning" href="{% url "users:unsubscribe" subscriber.subscriber.id %}">{% translate 'Unsubscribe' %}</a>
+        {% endfor %}
+        {% if subscribers %}
+        <p class="mt-4">
+            <a class="text-decoration-none text-danger " href="{% url 'users:unsubscribe_all' %}">{% translate 'Unsubscribe from All' %}</a>
+        </p>
+        {% endif %}
+
+    </div>
+    <!-- /.container -->
+{% endblock %}

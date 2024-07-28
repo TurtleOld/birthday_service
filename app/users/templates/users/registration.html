@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load django_bootstrap5 %}
+
+
+{% block title %}{% translate 'Registering a new user' %}{% endblock %}
+{% block content %}
+    <title>{{ title }}</title>
+    <div class="container d-flex min-vh-100 flex-column justify-content-center align-items-center">
+        <h1 class="text-white">Registering a new user</h1>
+        <form method="post" class="text-light help-text-form">
+            {% csrf_token %}
+            <p class="my-4">
+                {% bootstrap_form form %}
+            </p>
+            <div class="row align-items-center justify-content-around">
+                <div class="col-xl-3">
+                    <button type="submit" class="btn btn-primary">{% translate 'Register' %}</button>
+                </div>
+	            <div class="col-xl-3">
+		            <a class="btn btn-warning text-light text-nowrap" href="{% url 'login' %}">{% translate 'Back' %}</a>
+	            </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

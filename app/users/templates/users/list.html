@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% translate 'Users' %}
+    {{ user.username }}{% endblock %}
+{% block content %}
+    <div class="container text-light mt-5">
+        <h4>{% translate 'Registered users' %}</h4>
+        <ul class="list-group">
+            {% for user in users %}
+                <li class="list-group-item">
+                    Имя пользователя: {{ user.username }} <br> 
+                    Дата рождения: {{ user.birthday | date:"d F Y" }} г. <br>
+                    <a href="{% url 'users:subscribe' user.pk %}">Subscribe to the birthday notification</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- /.container -->
+{% endblock %}
